@@ -15,3 +15,7 @@ def section(request,num):
         return HttpResponse(texts[num-1])
     else:
         raise Http404("No such section")
+
+    
+def posts(request):
+    return render(request, "UI/posts.html")
