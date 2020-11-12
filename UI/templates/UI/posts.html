@@ -2,14 +2,31 @@
 <html>
     <head>
         <style>
+
+            @keyframes hide {
+                0%{
+                    opacity:1;
+                }
+                100%{
+                    opacity: 0;
+                }
+            }
             .post {
                 background-color: #77dd11;
                 padding: 20px;
                 margin: 10px;
+                animation-name: hide;
+                animation-duration: 2s;
+                animation-fill-mode: forwards;
+                animation-play-state: paused;
             }
 
             body {
                 padding-bottom: 50px;
+            }
+
+            .hide  {
+                float: right;
             }
         </style>
         <script>
@@ -28,6 +45,14 @@
                     load();
                 }
             }
+
+            document.addEventListener('click', event => {
+                const element = event.target;
+                if (element.className == 'hide'){
+                    //removeing partent element
+                    element.parentElement.remove();
+                }
+            });
 
             //load set of posts
             function load(){
@@ -50,7 +75,7 @@
                 //create new post
                 const post = document.createElement('div');
                 post.className = 'post';
-                post.innerHTML = contents;
+                post.innerHTML = `${contents} <button class="hide">Hide</button>`;
 
                 //Adds post to DOM
                 document.querySelector('#posts').append(post);
