@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
+import time
+from django.http import JsonResponse
 
 # Create your views here.
 
 def index(request):
-    return render(request, "UI/index.html")
+    return render(request, "UI/posts.html")
 
 texts = ["Nulla consequat felis vitae molestie sagittis. Aliquam enim enim, cursus sed scelerisque sed, varius ac est.",
         "Ut auctor lacus ac pharetra viverra. Aliquam maximus est vehicula nibh tincidunt, nec varius nibh elementum. ",
@@ -18,4 +20,21 @@ def section(request,num):
 
     
 def posts(request):
-    return render(request, "UI/posts.html")
+
+    start = int(request.GET.get("start") or 0)
+    end = int(request.GET.get("end") or (start + 9))
+
+
+    #generate list of posts
+    data = []
+    for i in range (start, end+1):
+        data.append(f"Post #{i}")
+
+
+    #delay speed of response
+    time.sleep(1)
+
+   # Return list of posts
+    return JsonResponse({
+        "posts": data
+    })
