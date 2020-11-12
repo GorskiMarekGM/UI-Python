@@ -23,6 +23,12 @@
             //when DOM loads render first 20 posts
             document.addEventListener('DOMContentLoaded', load);
 
+            window.onscroll = () =>{
+                if(window.innerHeight + window.scrollY >= document.body.offsetHeight){
+                    load();
+                }
+            }
+
             //load set of posts
             function load(){
 
